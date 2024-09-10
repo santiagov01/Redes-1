@@ -1,7 +1,7 @@
 // Definimos los pines de salida
-const int outputPin1 = 2; // Primera salida
-const int outputPin2 = 3; // Segunda salida
-const int outputPin3 = 4; // Tercera salida
+const int outputPin1 = 2; // Primera salida ROJO
+const int outputPin2 = 3; // Segunda salida VERDE
+const int outputPin3 = 4; // Tercera salida AZUL
 
 void setup() {
   // Configuramos los pines como salidas
@@ -16,14 +16,9 @@ void loop() {
   // Número hexadecimal a convertir
 
   InicioTransmision();
-
-  unsigned int hexValue = 0xA1B2FA73EB190; // Puedes cambiar el valor según tus necesidades
-  int Longitud=13;
-  Serial.print("Hexadecimal: ");
-  Serial.println(hexValue, HEX); // Imprimir en formato hexadecimal
-  
+  //F561EDAC00
   // Convertimos el número hexadecimal a binario
-  String hexString = "A1B2FA73EB190";
+  String hexString = "F561EDAC00";
   String binaryString = hex_to_bin(hexString);
   Serial.print("Binario: ");
   Serial.println(binaryString);
@@ -44,28 +39,28 @@ void loop() {
 
     // Activamos la salida correspondiente según el par de bits
     switch (pairBitsValue) {
-      case 0:
+      case 0: //00 ROJO
         // Controla la primera salida (pin 2)
         digitalWrite(outputPin1, HIGH);
         digitalWrite(outputPin2, LOW);
         digitalWrite(outputPin3, LOW);
         break;
-      case 1:
+      case 1: //01 VERDE
         // Controla la segunda salida (pin 3)
         digitalWrite(outputPin1, LOW);
         digitalWrite(outputPin2, HIGH);
         digitalWrite(outputPin3, LOW);
         break;
-      case 2:
+      case 2: //10 AZUL
         // Controla la tercera salida (pin 4)
         digitalWrite(outputPin1, LOW);
         digitalWrite(outputPin2, LOW);
         digitalWrite(outputPin3, HIGH);
         break;
-      case 3:
+      case 3: //11  MORADO
         // Activar simultáneamente las salidas 2 y 3
-        digitalWrite(outputPin1, LOW);
-        digitalWrite(outputPin2, HIGH); // Activa el pin 3
+        digitalWrite(outputPin1, HIGH);
+        digitalWrite(outputPin2, LOW); // Activa el pin 3
         digitalWrite(outputPin3, HIGH); // Activa el pin 4
         break;
     }
@@ -133,7 +128,6 @@ String hex_to_bin(String hexaString){
       index = hexChar - 'A' + 10;
     }
     binary += hexToBin[index];
-
   }
   return binary;
 }
